@@ -35,13 +35,18 @@ npm install
 cp .env.example .env
 npm run dev                   # http://localhost:5173
 
-### MetaMask setup (local)
-1. Add network: RPC http://127.0.0.1:8545 , Chain ID 31337, symbol ETH.
-2. Import 4 accounts using private keys printed by `npx hardhat node`
-   (Account #0 = Admin, #1 = Farmer, #2 = Transporter, #3 = Retailer).
-   These keys are PUBLIC test keys. Never use them with real money.
-3. Open http://localhost:5173/admin as Account #0 and register #1, #2, #3 with their roles
-   (or set FARMER_ADDRESS etc. in contracts-project/.env before deploying).
+### BridgeKey Wallet Setup (MST Testnet)
+
+FarmChain uses BridgeKey for wallet interactions on the MST Testnet.
+
+1. Open your BridgeKey wallet and connect to the supported MST Testnet.
+2. Use a dedicated test wallet for development and testing.
+3. Obtain test MSTC tokens from the official MST faucet if required.
+4. Configure the MST RPC endpoint and deployed smart contract addresses in the appropriate environment files.
+5. Start the frontend and backend using the installation commands above.
+
+**Security:** Never commit private keys, recovery phrases, or wallet credentials to GitHub.
+
 
 ### Demo flow
 Farmer: create batch -> QR code appears
@@ -49,11 +54,6 @@ Retailer: place order (pays into escrow)
 Transporter: Picked up -> Delivered
 Retailer: confirm receipt -> farmer is paid automatically
 Anyone: open /trace/1 (or scan the QR) to see the journey
-
-## Going to a public testnet (Polygon Amoy)
-Fill contracts-project/.env (PRIVATE_KEY of a TEST wallet, AMOY_RPC_URL), then:
-npx hardhat run scripts/deploy.js --network amoy
-Change backend/.env RPC_URL to the same Amoy RPC URL.
 
 ## Testing on MST Testnet with BridgeKey (MSTC tokens)
 The contract uses the chain's native coin (MSTC on MST) for prices and escrow, so no extra token contract is needed.
